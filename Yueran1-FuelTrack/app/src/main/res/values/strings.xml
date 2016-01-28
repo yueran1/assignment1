@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Yueran1-FuelTrack</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_view">view the log</string>
+    <string name="button_add">add new entry</string>
+    <string name="button_select">select and edit an existing entry</string>
+    <string name="cancel_adding_entry">cancel adding entry</string>
+
+</resources>
