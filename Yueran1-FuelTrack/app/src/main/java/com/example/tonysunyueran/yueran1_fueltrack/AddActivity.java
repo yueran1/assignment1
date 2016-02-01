@@ -29,10 +29,8 @@ import com.google.gson.reflect.TypeToken;
  * Created by tonysunyueran on 2016/1/27.
  */
 public class AddActivity extends AppCompatActivity {
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
+    //Create variable which allowed user to add
     private static final String FILENAME = "file.sav";
     protected EditText dateText;
     protected EditText stationText;
@@ -40,7 +38,6 @@ public class AddActivity extends AppCompatActivity {
     protected EditText fuelGradeText;
     protected EditText fuelAmountText;
     protected EditText fuelUnitCostText;
-
     protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
 
 
@@ -52,9 +49,9 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addactivity);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
 
+
+        //Make user able to add the data to Rdit Text
         dateText = (EditText) findViewById(R.id.enter_date);
         stationText = (EditText) findViewById(R.id.enter_station);
         odometerText = (EditText) findViewById(R.id.enter_odermeter);
@@ -63,6 +60,12 @@ public class AddActivity extends AppCompatActivity {
         fuelUnitCostText = (EditText) findViewById(R.id.enter_unitcost);
         Button cancel_button = (Button) findViewById(R.id.cancelbutton);
         Button finish_button = (Button) findViewById(R.id.finishbutton);
+
+
+        //This is the finish Button for the addActivity, in the onClick method
+        //We allow user to input information about date station odometer fuel amount fuel grade
+        //and fuel unit cost.
+        //We use try and catch to find out the error
 
         finish_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,9 @@ public class AddActivity extends AppCompatActivity {
                     double odometer = Double.parseDouble(odometerString);
                     double fuelUnitCost = Double.parseDouble(fuelUnitCostString);
 
+
+                    //At here, if user forget to enter some of the data and leave text field empty,
+                    // we will remind the user to enter.
                     if (date.equals("")) {
                         Toast.makeText(AddActivity.this, "Do not forget your date :)", Toast.LENGTH_SHORT).show();
                     } else if (station.equals("")) {
@@ -96,6 +102,8 @@ public class AddActivity extends AppCompatActivity {
                         saveInFile();
                         finish();
                     }
+
+                //If user does not enter the proper data type, we will remind the user
                 } catch (NumberFormatException e) {
                     Toast.makeText(AddActivity.this, "Data does not enter correctly", Toast.LENGTH_SHORT).show();
 
@@ -103,6 +111,7 @@ public class AddActivity extends AppCompatActivity {
             }
 
         });
+        //Cancel the addActivity and back to main page.
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +121,8 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
+
+    //load the file, allow user to see the entries they added.
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -129,7 +140,7 @@ public class AddActivity extends AppCompatActivity {
 
         }
     }
-
+    //save the file
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME, 0);

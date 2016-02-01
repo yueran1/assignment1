@@ -23,7 +23,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FuelMainActivity extends AppCompatActivity {
-    //try to create some code to send text and view the log
+
+
+
+    //This is the main page for the app, we just simply create a view button and select button
     private EditText bodyText;
     protected TextView textView;
     private static final String FILENAME = "file.sav";
@@ -31,6 +34,9 @@ public class FuelMainActivity extends AppCompatActivity {
     private Double totalcost = 0.0;
     private FuelTrack_log entry;
 
+
+
+    //Show the total cost that user has spend on the fuel, since the first time user use this app
     protected void onStart() {
         super.onStart();
         loadFromFile();
@@ -40,6 +46,7 @@ public class FuelMainActivity extends AppCompatActivity {
             entry = entries.get(i);
             totalcost = totalcost + entry.getTotalCost();
         }
+        //contraint the fuel cost to two decimal
         DecimalFormat fuelCostFormat = new DecimalFormat("###,###.##");
         totalFuelAmount.setText("$"+String.valueOf(fuelCostFormat.format(totalcost)));
 
@@ -52,31 +59,20 @@ public class FuelMainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuelmainactivity);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         textView =(TextView) findViewById(R.id.action_settings);
 
-        /*//Button viewButton = (Button) findViewById(R.id.view);
 
-        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        viewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String text =  bodyText.getText().toString();
-            }
-        });*/
     }
 
+
+    //At here i have changed the onclick method of view/edit button and  addButton to the "getinto"
+    //if the button text is "add new entry", we go to the addActivity
+    //if the button text is "view/edit an existing entry", we go to the selectActivity
     public void getinto(View view){
         String button_text;
         button_text= ((Button) view).getText().toString();
-        if(button_text.equals("view the log")){
-            Intent intent= new Intent(this,ViewActivity.class);
-            startActivity(intent);
-        }
-        else if(button_text.equals("add new entry")){
+
+        if(button_text.equals("add new entry")){
 
             Intent intent= new Intent(this,AddActivity.class);
             startActivity(intent);
@@ -88,7 +84,7 @@ public class FuelMainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
+    //load the file at there
     private void loadFromFile() {
         try {
 

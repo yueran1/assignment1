@@ -25,6 +25,9 @@ import java.util.ArrayList;
  * Created by tonysunyueran on 2016/1/27.
  */
 public class EditActivity extends AppCompatActivity {
+
+    //This class alow user to edit the selected log that they added before
+
     private static final String FILENAME = "file.sav";
     private ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
     private FuelTrack_log show_original_data;
@@ -36,6 +39,9 @@ public class EditActivity extends AppCompatActivity {
         Button FinishEdit = (Button) findViewById(R.id.finishedit);
 
         show_original_data = logs.get(SelectActivity.selection_identifier);
+
+
+        //Allow user to use Edit Text to change the original data
         final TextView EditDate = (TextView) findViewById(R.id.editdate);
         final TextView EditStation = (TextView) findViewById(R.id.editstation);
         final TextView EditOdometer = (TextView) findViewById(R.id.editodometer);
@@ -43,6 +49,9 @@ public class EditActivity extends AppCompatActivity {
         final TextView EditFuelAmount = (TextView) findViewById(R.id.editfuelamount);
         final TextView EditUnitCost = (TextView) findViewById(R.id.editfuelunitcost);
 
+
+        //This part simply we use getter method from Class FuelTrack_log to
+        // show the original data that user entered before
         EditDate.setText(show_original_data.getDate());
         EditStation.setText(show_original_data.getStation());
         EditOdometer.setText(String.valueOf(show_original_data.getOdometer()));
@@ -55,6 +64,9 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 try {
+
+                    //This part simply we use getter method from Class FuelTrack_log to
+                    // show the original data that user entered before
                     String date = EditDate.getText().toString();
                     String station = EditStation.getText().toString();
                     String odometerString = EditOdometer.getText().toString();
@@ -62,38 +74,31 @@ public class EditActivity extends AppCompatActivity {
                     String fuelAmountString = EditFuelAmount.getText().toString();
                     String fuelUnitCostString = EditUnitCost.getText().toString();
 
+
+                    //Convert fuelAmountString odometerString fuelUnitCostString to double type
                     double fuelAmount = Double.parseDouble(fuelAmountString);
                     double odometer = Double.parseDouble(odometerString);
                     double fuelUnitCost = Double.parseDouble(fuelUnitCostString);
 
-                    if (date.equals("")) {
-                        Toast.makeText(EditActivity.this, "Do not forget your date :)", Toast.LENGTH_SHORT).show();
-                    } else if (station.equals("")) {
-                        Toast.makeText(EditActivity.this, "Do not forget your station :)", Toast.LENGTH_SHORT).show();
-                    } else if (fuelGrade.equals("")) {
-                        Toast.makeText(EditActivity.this, "Do not forget your fuel grade :)", Toast.LENGTH_SHORT).show();
-                    } else if (odometerString.equals("")) {
-                        Toast.makeText(EditActivity.this, "Do not forget your odometer :)", Toast.LENGTH_SHORT).show();
-                    } else if (fuelAmountString.equals("")) {
-                        Toast.makeText(EditActivity.this, "Do not forget your fuel_amount :)", Toast.LENGTH_SHORT).show();
-                    } else {
 
-                        Double fuelCost = fuelAmount * (fuelUnitCost / 100);
-
-                        show_original_data.setDate(date);
-                        show_original_data.setStation(station);
-                        show_original_data.setOdometer(odometer);
-                        show_original_data.setFuel_grade(fuelGrade);
-                        show_original_data.setFuel_amount(fuelAmount);
-                        show_original_data.setFuel_unit_cost(fuelUnitCost);
-                        show_original_data.setFuel_cost(fuelCost);
+                    //Calculate the Total Fuel Cost in dollar unit
+                    Double fuelCost = fuelAmount * (fuelUnitCost / 100);
 
 
-                        saveInFile();
+                    //Use set method from FuelTrack_log to Allow user to set the new data
+                    show_original_data.setDate(date);
+                    show_original_data.setStation(station);
+                    show_original_data.setOdometer(odometer);
+                    show_original_data.setFuel_grade(fuelGrade);
+                    show_original_data.setFuel_amount(fuelAmount);
+                    show_original_data.setFuel_unit_cost(fuelUnitCost);
+                    show_original_data.setFuel_cost(fuelCost);
 
-                        loadFromFile();
-                        finish();
-                    }
+
+                    saveInFile();
+                    loadFromFile();
+                    finish();
+                //Check does user input the correct type of the data
                 } catch (NumberFormatException e) {
                     Toast.makeText(EditActivity.this, "Data does not enter correctly", Toast.LENGTH_SHORT).show();
                 }
@@ -102,7 +107,7 @@ public class EditActivity extends AppCompatActivity {
 
         });
     }
-
+    //Canceling the Editing and back to selectActivity
     public void CancelEdit(View view){
         finish();
 
@@ -110,15 +115,11 @@ public class EditActivity extends AppCompatActivity {
 
 
     private void loadFromFile() {
-        //ArrayList<String> tweets = new ArrayList<String>();
+
         try {
             FileInputStream fis = openFileInput(FILENAME);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-            //String line = in.readLine();
-            //while (line != null) {
-            //	tweets.add(line);
-            //	line = in.readLine();
-            //}
+
             Gson gson= new Gson();
 
             //
@@ -128,23 +129,21 @@ public class EditActivity extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+
             logs=new ArrayList<FuelTrack_log>();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+
             throw new RuntimeException();
 
         }
-        //return tweets.toArray(new String[tweets.size()]);
     }
 
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
                     Context.MODE_PRIVATE);
-            //fos.write(new String(date.toString() + " | " + text)
-            //.getBytes());
+
 
             BufferedWriter out=new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson= new Gson();
@@ -153,11 +152,11 @@ public class EditActivity extends AppCompatActivity {
             fos.close();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+            ;
             throw new RuntimeException();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            //e.printStackTrace();
+
             throw new RuntimeException();
         }
     }

@@ -22,10 +22,8 @@ import com.google.gson.reflect.TypeToken;
  * Created by tonysunyueran on 2016/1/27.
  */
 public class ViewActivity extends AppCompatActivity {
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
+    //This class is allow user to view the log they entered before
 
     private static final String FILENAME = "file.sav";
     protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
@@ -33,6 +31,9 @@ public class ViewActivity extends AppCompatActivity {
     protected FuelTrack_log main_viewlog;
     private Double totalcost = 0.0;
 
+
+    //The onStart method working on load the file and use getTotalcost method from FuelTrack_log to
+    // show the total number of fuel cost
     protected void onStart() {
         super.onStart();
         loadFromFile();
@@ -45,6 +46,9 @@ public class ViewActivity extends AppCompatActivity {
     }
 
 
+
+    //In the OnCreate method, we use all getter method in the class FuelTrack_log to get every
+    //information that user added, and we use TextView to show user these data.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +71,24 @@ public class ViewActivity extends AppCompatActivity {
         TextView Viewstation = (TextView) findViewById(R.id.viewstation);
         Viewstation.setText(viewLog.getStation());
 
+
+        //Show odometer in one decimal format.
         DecimalFormat odometerFormat = new DecimalFormat("###,###.#");
         TextView Viewodometer = (TextView) findViewById(R.id.viewodometer);
+        //Add the unit "KM" When show the value of odometer
         Viewodometer.setText(String.valueOf(odometerFormat.format(viewLog.getOdometer()))+"KM");
 
         TextView Viewfuelgrade = (TextView) findViewById(R.id.viewfuelgrade);
         Viewfuelgrade.setText(viewLog.getFuel_grade());
 
+        //Show fuel amount in three decimal format
         DecimalFormat fuelAmountFormat = new DecimalFormat("###,###.###");
         TextView Viewfuelamount = (TextView) findViewById(R.id.viewfuelamount);
+        //Add the unit "L" when show the value of fuel amount
         Viewfuelamount.setText(String.valueOf(fuelAmountFormat.format(viewLog.getFuel_amount()))+"L");
 
         TextView fuelUnitCostInfo = (TextView) findViewById(R.id.viewfuelunitcost);
+        //Add the unit "cents/L" when show the value of fuel unit cost.
         fuelUnitCostInfo.setText(String.valueOf(odometerFormat.format(viewLog.getFuel_unit_cost()))+" cents/L");
     }
 

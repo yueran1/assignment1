@@ -6,6 +6,8 @@ import java.util.Date;
  * Created by tonysunyueran on 2016/1/27.
  */
 public class FuelTrack_log {
+
+    //Create variable which i need in this app
     protected String date;
     protected String station;
     protected Double odometer;
@@ -14,7 +16,7 @@ public class FuelTrack_log {
     protected Double fuel_unit_cost;
     protected Double fuel_cost;
 
-
+    //Constructors for the class FuelTrack_log
     public FuelTrack_log(String date, String station, double odometer, String fuel_grade, double fuel_amount, double fuel_unit_cost, double fuel_cost) {
         this.date = date;
         this.station = station;
@@ -24,7 +26,7 @@ public class FuelTrack_log {
         this.fuel_unit_cost = fuel_unit_cost;
 
     }
-    ////////////////////check
+    //Getter and setter for every variable
    public double getTotalCost(){
        return this.fuel_amount*(this.fuel_unit_cost/100);
    }
