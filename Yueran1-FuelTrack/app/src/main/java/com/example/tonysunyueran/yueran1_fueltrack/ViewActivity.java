@@ -3,6 +3,7 @@ package com.example.tonysunyueran.yueran1_fueltrack;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,12 +21,12 @@ import com.google.gson.reflect.TypeToken;
 /**
  * Created by tonysunyueran on 2016/1/27.
  */
-public class ViewActivity extends Activity {
+public class ViewActivity extends AppCompatActivity {
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+
     private static final String FILENAME = "file.sav";
     protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
     protected FuelTrack_log viewLog;

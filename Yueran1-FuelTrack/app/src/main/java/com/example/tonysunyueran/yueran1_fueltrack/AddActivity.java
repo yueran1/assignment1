@@ -40,7 +40,7 @@ public class AddActivity extends AppCompatActivity {
     protected EditText fuelGradeText;
     protected EditText fuelAmountText;
     protected EditText fuelUnitCostText;
-    private GoogleApiClient client;
+
     protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
 
 
@@ -54,7 +54,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_addactivity);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
         dateText = (EditText) findViewById(R.id.enter_date);
         stationText = (EditText) findViewById(R.id.enter_station);
         odometerText = (EditText) findViewById(R.id.enter_odermeter);

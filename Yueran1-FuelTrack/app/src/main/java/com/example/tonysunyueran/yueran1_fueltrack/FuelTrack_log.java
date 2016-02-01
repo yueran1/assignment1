@@ -77,10 +77,6 @@ public class FuelTrack_log {
         return fuel_unit_cost;
     }
 
-    public Double getFuel_cost() {
-        return fuel_cost;
-    }
-
     public void setFuel_unit_cost(double fuel_unit_cost) {
         this.fuel_unit_cost = fuel_unit_cost;
 

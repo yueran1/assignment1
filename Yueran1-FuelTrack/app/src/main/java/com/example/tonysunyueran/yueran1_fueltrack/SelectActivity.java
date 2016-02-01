@@ -57,7 +57,7 @@ public class SelectActivity extends AppCompatActivity {
         for (int i = 1; i <= count; i++) {
             Flog=logs.get(i-1);
             RadioButton button = new RadioButton(this);
-            button.setId(1-1+i);
+            button.setId(1*i);
             button.setText("Select Log: " + Flog.getDate()+" "+Flog.getStation());
             radioGroup[i-1] = button;
             ((ViewGroup) findViewById(R.id.radiogroup)).addView(radioGroup[i- 1]);
@@ -119,9 +119,6 @@ public class SelectActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void loadFromFile() {
 
         try {
@@ -149,28 +146,6 @@ public class SelectActivity extends AppCompatActivity {
 
     }
 
-    private void saveInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME,
-                    0);
-            //fos.write(new String(date.toString() + " | " + text)
-            //.getBytes());
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-            gson.toJson(logs, out);
-            out.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-            throw new RuntimeException();
-        }
-    }
 
 
 

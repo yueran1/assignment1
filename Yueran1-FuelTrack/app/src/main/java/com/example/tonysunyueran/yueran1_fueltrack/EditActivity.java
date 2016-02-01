@@ -3,6 +3,7 @@ package com.example.tonysunyueran.yueran1_fueltrack;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,9 +22,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * Created by tonysunyueran on 2016/1/31.
+ * Created by tonysunyueran on 2016/1/27.
  */
-public class EditActivity extends Activity {
+public class EditActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
     private ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
     private FuelTrack_log show_original_data;
