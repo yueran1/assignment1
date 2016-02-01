@@ -3,17 +3,16 @@ package com.example.tonysunyueran.yueran1_fueltrack;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
+import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,60 +27,58 @@ public class ViewActivity extends Activity {
      */
     private GoogleApiClient client;
     private static final String FILENAME = "file.sav";
-    protected ArrayList<FuelTrack_log> entries = new ArrayList<FuelTrack_log>();
+    protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
     protected FuelTrack_log viewLog;
+    protected FuelTrack_log main_viewlog;
+    private Double totalcost = 0.0;
+
+    protected void onStart() {
+        super.onStart();
+        loadFromFile();
+        totalcost = 0.0;
+        main_viewlog = logs.get(SelectActivity.selection_identifier);
+        totalcost =  main_viewlog.getTotalCost();
+        DecimalFormat fuelCostFormat = new DecimalFormat("###,###.##");
+        TextView WholeCost = (TextView) findViewById(R.id.viewtotalcost);
+        WholeCost.setText("$"+String.valueOf(fuelCostFormat.format(totalcost)));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewactivity);
         Button finishview = (Button) findViewById(R.id.finishview);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
         loadFromFile();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        finishview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        viewLog = logs.get(SelectActivity.selection_identifier);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "View Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.tonysunyueran.yueran1_fueltrack/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
+        TextView Viewdate = (TextView) findViewById(R.id.viewdate);
+        Viewdate.setText(viewLog.getDate());
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "View Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.tonysunyueran.yueran1_fueltrack/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
+        TextView Viewstation = (TextView) findViewById(R.id.viewstation);
+        Viewstation.setText(viewLog.getStation());
+
+        DecimalFormat odometerFormat = new DecimalFormat("###,###.#");
+        TextView Viewodometer = (TextView) findViewById(R.id.viewodometer);
+        Viewodometer.setText(String.valueOf(odometerFormat.format(viewLog.getOdometer()))+"KM");
+
+        TextView Viewfuelgrade = (TextView) findViewById(R.id.viewfuelgrade);
+        Viewfuelgrade.setText(viewLog.getFuel_grade());
+
+        DecimalFormat fuelAmountFormat = new DecimalFormat("###,###.###");
+        TextView Viewfuelamount = (TextView) findViewById(R.id.viewfuelamount);
+        Viewfuelamount.setText(String.valueOf(fuelAmountFormat.format(viewLog.getFuel_amount()))+"L");
+
+        TextView fuelUnitCostInfo = (TextView) findViewById(R.id.viewfuelunitcost);
+        fuelUnitCostInfo.setText(String.valueOf(odometerFormat.format(viewLog.getFuel_unit_cost()))+" cents/L");
     }
 
     private void loadFromFile() {
@@ -91,9 +88,9 @@ public class ViewActivity extends Activity {
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<FuelTrack_log>>() {
             }.getType();
-            entries = gson.fromJson(in, listType);
+            logs = gson.fromJson(in, listType);
         } catch (FileNotFoundException e) {
-            entries = new ArrayList<>();
+            logs = new ArrayList<>();
         }
 
     }

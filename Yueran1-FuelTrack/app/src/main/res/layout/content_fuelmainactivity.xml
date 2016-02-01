@@ -15,45 +15,44 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/textView" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/view"
-        android:text="@string/button_view"
-        android:layout_above="@+id/edit"
+        android:text="Your Total Cost on Fuel:"
+        android:id="@+id/totalcost"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="45dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="getinto" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_add"
         android:id="@+id/add"
-        android:layout_marginBottom="48dp"
-        android:layout_above="@+id/view"
+        android:onClick="getinto"
+        android:layout_above="@+id/edit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="getinto" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_select"
         android:id="@+id/edit"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="110dp"
+        android:onClick="getinto"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="getinto" />
+        android:layout_alignRight="@+id/add"
+        android:layout_alignEnd="@+id/add" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/mainviewtotalcost"
+        android:layout_below="@+id/totalcost"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

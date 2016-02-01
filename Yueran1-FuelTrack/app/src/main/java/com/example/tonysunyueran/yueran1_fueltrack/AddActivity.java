@@ -33,6 +33,7 @@ public class AddActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+    private static final String FILENAME = "file.sav";
     protected EditText dateText;
     protected EditText stationText;
     protected EditText odometerText;
@@ -42,10 +43,10 @@ public class AddActivity extends AppCompatActivity {
     private GoogleApiClient client;
     protected ArrayList<FuelTrack_log> logs = new ArrayList<FuelTrack_log>();
 
-    private static final String FILENAME = "file.sav";
 
 
-    //might only need onCreate method
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,23 +71,23 @@ public class AddActivity extends AppCompatActivity {
                     String date = dateText.getText().toString();
                     String station = stationText.getText().toString();
                     String odometerString = odometerText.getText().toString();
-                    double odometer = Double.parseDouble(odometerString);
                     String fuelGrade = fuelGradeText.getText().toString();
                     String fuelAmountString = fuelAmountText.getText().toString();
-                    double fuelAmount = Double.parseDouble(fuelAmountString);
                     String fuelUnitCostString = fuelUnitCostText.getText().toString();
+                    double fuelAmount = Double.parseDouble(fuelAmountString);
+                    double odometer = Double.parseDouble(odometerString);
                     double fuelUnitCost = Double.parseDouble(fuelUnitCostString);
 
                     if (date.equals("")) {
-                        Toast.makeText(AddActivity.this, "Do not forget your date", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Do not forget your date :)", Toast.LENGTH_SHORT).show();
                     } else if (station.equals("")) {
-                        Toast.makeText(AddActivity.this, "Do not forget your station", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Do not forget your station :)", Toast.LENGTH_SHORT).show();
                     } else if (fuelGrade.equals("")) {
-                        Toast.makeText(AddActivity.this, "Do not forget your fuel grade", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Do not forget your fuel grade :)", Toast.LENGTH_SHORT).show();
                     } else if (odometerString.equals("")) {
-                        Toast.makeText(AddActivity.this, "Do not forget your odometer", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Do not forget your odometer :)", Toast.LENGTH_SHORT).show();
                     } else if (fuelAmountString.equals("")) {
-                        Toast.makeText(AddActivity.this, "Do not forget your fuel_amount", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddActivity.this, "Do not forget your fuel_amount :)", Toast.LENGTH_SHORT).show();
                     } else {
                         Double totalcost = fuelAmount * fuelUnitCost;
                         FuelTrack_log newEntry = new FuelTrack_log(date, station, odometer, fuelGrade, fuelAmount, fuelUnitCost, totalcost);
@@ -96,7 +97,7 @@ public class AddActivity extends AppCompatActivity {
                         finish();
                     }
                 } catch (NumberFormatException e) {
-                    Toast.makeText(AddActivity.this, "Not all data present", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivity.this, "Data does not enter correctly", Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -6,16 +6,14 @@ import java.util.Date;
  * Created by tonysunyueran on 2016/1/27.
  */
 public class FuelTrack_log {
-    //protected Date date;
     protected String date;
     protected String station;
-    protected double odometer;
+    protected Double odometer;
     protected String fuel_grade;
-    protected double fuel_amount;
-    protected double fuel_unit_cost;
-    protected double fuel_cost;
-    //private ArrayList<FuelTrack> currentEntries = new ArrayList<>();
-    //private static final String FILENAME = "file.sav";
+    protected Double fuel_amount;
+    protected Double fuel_unit_cost;
+    protected Double fuel_cost;
+
 
     public FuelTrack_log(String date, String station, double odometer, String fuel_grade, double fuel_amount, double fuel_unit_cost, double fuel_cost) {
         this.date = date;
@@ -28,8 +26,12 @@ public class FuelTrack_log {
     }
     ////////////////////check
    public double getTotalCost(){
-       return this.fuel_amount*this.fuel_unit_cost;
+       return this.fuel_amount*(this.fuel_unit_cost/100);
    }
+
+    public void setFuel_cost(Double fuel_cost) {
+        this.fuel_cost = fuel_cost;
+    }
 
     public String getDate() {
         return date;
@@ -75,11 +77,16 @@ public class FuelTrack_log {
         return fuel_unit_cost;
     }
 
+    public Double getFuel_cost() {
+        return fuel_cost;
+    }
+
     public void setFuel_unit_cost(double fuel_unit_cost) {
         this.fuel_unit_cost = fuel_unit_cost;
 
 
     }
+
 
 
 }
