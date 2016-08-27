@@ -64,6 +64,16 @@ public class FuelMainActivity extends AppCompatActivity {
 
     }
 
+    //==============================Trying to add MapActivity====================================//
+    public void OpenMap(View view){
+
+        Intent intent = new Intent(this,LocationActivity.class);
+        startActivity(intent);
+
+
+    }
+
+
 
     //At here i have changed the onclick method of view/edit button and  addButton to the "getinto"
     //if the button text is "add new entry", we go to the addActivity
